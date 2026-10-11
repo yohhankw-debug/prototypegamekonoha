@@ -1,0 +1,8 @@
+name = "prototypegamekonoha-api"
+main = "worker.js"
+compatibility_date = "2026-10-11"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "prototypegamekonoha"
+database_id = "eb9d1220-07c2-4a77-9ee3-ccc5053dcf79"
