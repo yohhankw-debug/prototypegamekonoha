@@ -41,7 +41,7 @@ function say(s){$('status').textContent=s}
 function updateHud(){$('sun').textContent=Math.floor(sun);$('score').textContent=score;$('lives').textContent=lives;$('wave').textContent=wave;$('left').textContent=Math.max(0,total-spawned)+zombies.length}
 function reset(){plants=[];zombies=[];shots=[];suns=[];sun=150;score=0;lives=3;wave=1;tick=0;spawned=0;total=8;over=false;won=false;spawnTimer=0;selected='pea';document.querySelectorAll('[data-plant]').forEach(b=>b.classList.toggle('selected',b.dataset.plant===selected));say('Pilih tanaman, lalu klik petak kosong untuk menanam.');$('leaderboard').innerHTML='<li>Skor lokal akan muncul setelah permainan selesai.</li>';updateHud();last=performance.now()}
 function cellAt(e){const r=canvas.getBoundingClientRect();return {x:Math.floor((e.clientX-r.left)*canvas.width/r.width/CW),y:Math.floor((e.clientY-r.top)*canvas.height/r.height/CH)}}
-canvas.addEventListener('pointerdown',e=>{if(over)return;const {x,y}=cellAt(e);if(x<0||x>=COLS||y<0||y>=ROWS)return;
+canvas.addEventListener('pointerdown',e=>{if(over)return;const r=canvas.getBoundingClientRect(),px=(e.clientX-r.left)*canvas.width/r.width,py=(e.clientY-r.top)*canvas.height/r.height;const picked=suns.find(s=>Math.hypot(s.x-px,s.y-py)<30);if(picked){sun+=25;suns=suns.filter(s=>s!==picked);say('+25 energi chakra!');updateHud();return}const {x,y}=cellAt(e);if(x<0||x>=COLS||y<0||y>=ROWS)return;
 const existing=plants.find(p=>p.x===x&&p.y===y);if(existing){say(plantNames[existing.type]+' sudah ada di petak itu.');return}
 if(sun<costs[selected]){say('Energi belum cukup untuk '+plantNames[selected]+'.');return}
 sun-=costs[selected];plants.push({x,y,type:selected,hp:selected==='wall'?260:100,cd:0});say(plantNames[selected]+' berhasil ditanam!');updateHud()});
