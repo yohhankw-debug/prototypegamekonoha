@@ -1,5 +1,5 @@
-name = "prototypegamekonoha-api"
-main = "worker.js"
+name = "prototypegamekonoha"
+pages_build_output_dir = "."
 compatibility_date = "2026-10-11"
 
 [[d1_databases]]
